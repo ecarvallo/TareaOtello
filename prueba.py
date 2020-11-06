@@ -1,9 +1,15 @@
+#Integrantes:
+#Enrique José Carvallo Rioseco     
+#César Tomás Roudergue Fuentes
+
+
 ALTO = 3 #6
 ANCHO = 3 #6
 VACIO = 0
 O = 1
 X = 2
 
+#funcion base para delimitar la dimensión del tablero estando vacío
 def tableroVacio(alto : int = ALTO, ancho : int = ANCHO) -> list():
   return [[VACIO for i in range(alto)] for j in range(ancho)]
 
@@ -48,12 +54,14 @@ def buscarPosiblesJugadas(jugador, tablero: list()) -> list():
   return salida
 
 #listaJugadas = lista((Jugador, Fila (Y), Columna(X)))
+#Aquí se registran las jugadas hechas dentro del tablero, el cual está vacío desde un inicio.
 def llenarTablero(listaJugadas):
   tablero = tableroVacio()
   for jugada in listaJugadas:
     tablero[jugada[1]][jugada[2]] = jugada[0]
   return tablero
 
+#En las funciones calcularTablero y calcularTablero2 se calculan los puntajes en base a las jugadas hechas.
 def calcularTablero(tablero: list(), jugador: int):
   #Puntajes: 2 seguidos  = 3, 3 seguidos = 10, interrumpido = 0
   puntaje = 0
@@ -129,7 +137,7 @@ def calcularTablero2(tablero: list(), jugador: int):
 
   return puntaje
 
-
+#Se muestra el tablero por pantalla.
 def imprimirTablero(tablero):
   #[[x,y,0][][]]
   for y in tablero:
@@ -143,6 +151,7 @@ def imprimirTablero(tablero):
     print()
 
 #((X, 0, 0), (O,0,1))
+#Se conservan las jugadas hechas.
 def obtenerJugadas(tablero: list()):
   jugadas = list()
   for i, fila in enumerate(tablero):
@@ -151,6 +160,7 @@ def obtenerJugadas(tablero: list()):
         jugadas.append((valor, i, j))
   return jugadas
 
+#Función para los turnos de cada jugador.
 def permutar_jugador(jugador):
   if(jugador == X):
     return O
@@ -202,6 +212,7 @@ tablero = tableroVacio(ALTO, ANCHO)
 imprimirTablero(tablero)
 
 cont = 0
+#Aquí se muestran por pantalla todos los datos relevantes del juego, incluyendo el tablero mismo.
 while(not juegoFinalizado(tablero) and cont < 33):
   posiblesJugadas = buscarPosiblesJugadas(turno, tablero)
   print(posiblesJugadas)
